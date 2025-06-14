@@ -2,7 +2,8 @@ import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 import mongoose from "mongoose";
-import router from "./routers/todo.route.js"; // .js ext yozish majburiy
+import router from "./routers/todo.route.js";
+import cors from "cors";
 const app = express();
 
 app.use(express.json());
@@ -10,9 +11,7 @@ app.use("/api", router);
 // CORS ruxsat
 app.use(
   cors({
-    origin: "*", // yoki faqat frontend URL: 'http://localhost:3000'
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
+    origin: "*",
   })
 );
 const DB_URL = process.env.DB_URL;
