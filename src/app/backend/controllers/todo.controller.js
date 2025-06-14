@@ -1,4 +1,4 @@
-const todoService = require("../service/todo.service");
+import todoService from "../service/todo.service";
 
 class TodoController {
   async getAll(req, res) {

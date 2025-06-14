@@ -1,4 +1,4 @@
-const todoModel = require("../models/todo.model");
+import todoModel from "../models/todo.model";
 
 class TodoService {
   async getAll() {

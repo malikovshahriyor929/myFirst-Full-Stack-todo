@@ -1,6 +1,7 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const router = require("./routers/todo.route");
+import express from "express";
+import mongoose from "mongoose";
+import router from "./routers/todo.route.js"; // .js ext yozish majburiy
+
 const app = express();
 
 app.use(express.json());
