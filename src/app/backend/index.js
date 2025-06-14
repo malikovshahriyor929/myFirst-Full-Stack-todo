@@ -7,7 +7,14 @@ const app = express();
 
 app.use(express.json());
 app.use("/api", router);
-
+// CORS ruxsat
+app.use(
+  cors({
+    origin: "*", // yoki faqat frontend URL: 'http://localhost:3000'
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 const DB_URL = process.env.DB_URL;
 const PORT = process.env.PORT;
 const startConnection = async () => {
