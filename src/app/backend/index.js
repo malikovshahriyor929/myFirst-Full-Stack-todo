@@ -11,7 +11,7 @@ app.use("/api", router);
 // CORS ruxsat
 app.use(
   cors({
-    origin: "*",
+    origin: "http://localhost:3000",
   })
 );
 const DB_URL = process.env.DB_URL;
