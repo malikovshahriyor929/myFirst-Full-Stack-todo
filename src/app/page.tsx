@@ -12,9 +12,16 @@ const Home = () => {
   useEffect(() => {
     fn();
   }, [fn]);
+
   return (
     <div>
-      <pre>{JSON.stringify(data, null, 4)}</pre>
+      <div>
+        {data.map((value: any, i) => (
+          <div key={i}>
+            <p>{value.text}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
