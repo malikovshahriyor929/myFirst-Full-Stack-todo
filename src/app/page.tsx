@@ -19,7 +19,7 @@ const Home = () => {
   };
   useEffect(() => {
     fn();
-  }, [fn]);
+  }, []);
 
   return (
     <div>
