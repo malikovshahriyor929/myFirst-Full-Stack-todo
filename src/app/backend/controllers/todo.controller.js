@@ -9,6 +9,14 @@ class TodoController {
       res.status(500).json(error);
     }
   }
+  async create(req, res) {
+    try {
+      const todo = await todoService.create(req.body.text);
+      res.status(201).json(todo);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
 }
 
 export default new TodoController();
