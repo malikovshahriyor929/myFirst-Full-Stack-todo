@@ -1,7 +1,7 @@
 import express from "express";
-import todoController from "../controllers/todo.controller";
+import TodoController from "../controllers/todo.controller.js";
 const router = express.Router();
 
-router.get("/getAll", todoController.getAll);
+router.get("/getAll", TodoController.getAll);
 
-module.exports = router;
+export default router;

@@ -1,7 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import router from "./routers/todo.route.js"; // .js ext yozish majburiy
-
+import dotenv from "dotenv";
+dotenv.config();
 const app = express();
 
 app.use(express.json());

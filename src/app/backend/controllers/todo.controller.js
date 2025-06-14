@@ -1,4 +1,4 @@
-import todoService from "../service/todo.service";
+import todoService from "../service/todo.service.js";
 
 class TodoController {
   async getAll(req, res) {
@@ -11,4 +11,4 @@ class TodoController {
   }
 }
 
-module.exports = new TodoController();
+export default new TodoController();

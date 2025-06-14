@@ -1,4 +1,4 @@
-import todoModel from "../models/todo.model";
+import todoModel from "../models/todo.model.js";
 
 class TodoService {
   async getAll() {
@@ -6,4 +6,4 @@ class TodoService {
     return todo;
   }
 }
-module.exports = new TodoService();
+export default new TodoService();

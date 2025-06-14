@@ -7,4 +7,4 @@ const TodoSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = model("Todo", TodoSchema);
+export default model("Todo", TodoSchema);
