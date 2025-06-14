@@ -2,8 +2,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+interface dataType {
+  _id: string;
+  text: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
 const Home = () => {
-  const [data, setdata] = useState([]);
+  const [data, setdata] = useState<dataType[]>([]);
   const fn = () => {
     axios
       .get("https://todobymalikovshahriyor.onrender.com/api/getAll")
@@ -16,7 +24,7 @@ const Home = () => {
   return (
     <div>
       <div>
-        {data.map((value: any, i) => (
+        {data.map((value, i) => (
           <div key={i}>
             <p>{value.text}</p>
           </div>
