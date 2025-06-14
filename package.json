@@ -7,7 +7,7 @@
     "dev": "concurrently \"npm run server\" \"next dev\"",
     "server": "nodemon src/app/backend/index.js",
     "build": "next build",
-    "start": "next start",
+    "start": "node ./src/app/backend",
     "lint": "next lint"
   },
   "dependencies": {
