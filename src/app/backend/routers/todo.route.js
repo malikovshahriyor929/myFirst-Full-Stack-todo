@@ -4,5 +4,6 @@ const router = express.Router();
 
 router.get("/getAll", TodoController.getAll);
 router.post("/create", TodoController.create);
+router.delete("/delete/:id", TodoController.delete);
 
 export default router;

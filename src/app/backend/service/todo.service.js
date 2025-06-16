@@ -9,5 +9,9 @@ class TodoService {
     const todo = await todoModel.create({ text });
     return todo;
   }
+  async deleteFn(id) {
+    const todoDelete = await todoModel.findByIdAndDelete(id);
+    return todoDelete;
+  }
 }
 export default new TodoService();
