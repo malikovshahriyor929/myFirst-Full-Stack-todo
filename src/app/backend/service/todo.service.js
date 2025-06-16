@@ -6,7 +6,7 @@ class TodoService {
     return todo;
   }
   async create(text) {
-    const todo = await todoModel.create(text);
+    const todo = await todoModel.create({ text });
     return todo;
   }
 }
