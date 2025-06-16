@@ -65,7 +65,7 @@ const Home = () => {
           text: value,
         }
       )
-      .then((res) => {
+      .then(() => {
         fn();
         setValue("");
         setEditedId(null);
@@ -76,7 +76,7 @@ const Home = () => {
   const deleteFn = (id: string) => {
     axios
       .delete(`https://todobymalikovshahriyor.onrender.com/api/delete/${id}`)
-      .then((res) => {
+      .then(() => {
         fn();
       });
   };
