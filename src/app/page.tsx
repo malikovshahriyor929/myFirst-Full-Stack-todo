@@ -57,7 +57,6 @@ const Home = () => {
   };
   const handleEdit = (e: FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     axios
       .post(
         `https://todobymalikovshahriyor.onrender.com/api/edit/${editedId}`,
@@ -69,7 +68,6 @@ const Home = () => {
         fn();
         setValue("");
         setEditedId(null);
-        setLoading(false);
         setEditOpen(false);
       });
   };
@@ -82,7 +80,10 @@ const Home = () => {
   };
   return (
     <div className="flex flex-col mt-10 ">
-      <div className="flex max-w-[500px] mx-auto justify-center w-full ">
+      <div className="flex max-w-[500px] flex-col gap-3 mx-auto justify-center w-full ">
+        <div className=" text-start ">
+          <h1 className="text-2xl">Todo List:</h1>
+        </div>
         {!editOpen ? (
           <form
             onSubmit={handleSend}
@@ -118,15 +119,15 @@ const Home = () => {
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]">Todos </TableHead>
-              <TableHead className="text-right">Time</TableHead>
-              <TableHead className="text-right">action</TableHead>
+              <TableHead className="text-center">Time</TableHead>
+              <TableHead className="text-center">action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {data.map((value, i) => (
               <TableRow key={i}>
                 <TableCell className="font-medium">{value.text}</TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-center">
                   {value.createdAt.slice(0, 10)}
                 </TableCell>
                 <TableCell className="w-fit">
