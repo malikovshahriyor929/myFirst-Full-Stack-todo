@@ -26,6 +26,15 @@ class TodoController {
       res.status(500).json(error);
     }
   }
+  async edit(req, res) {
+    try {
+      const id = req.params.id;
+      const edited = await todoService.edit(id, req.body.text);
+      res.status(200).json(edited);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
 }
 
 export default new TodoController();

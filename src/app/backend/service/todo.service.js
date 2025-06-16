@@ -13,5 +13,13 @@ class TodoService {
     const todoDelete = await todoModel.findByIdAndDelete(id);
     return todoDelete;
   }
+  async edit(id, text) {
+    const edited = await todoModel.findByIdAndUpdate(
+      id,
+      { text },
+      { new: true }
+    );
+    return edited;
+  }
 }
 export default new TodoService();

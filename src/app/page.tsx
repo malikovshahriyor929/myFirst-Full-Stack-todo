@@ -31,10 +31,12 @@ const Home = () => {
   const [data, setdata] = useState<dataType[]>([]);
   const [value, setValue] = useState("");
   const [Loading, setLoading] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [editedId, setEditedId] = useState<string | null>(null);
   const fn = () => {
     axios
       .get("https://todobymalikovshahriyor.onrender.com/api/getAll")
-      .then((res) => setdata(res.data));
+      .then((res) => setdata(res.data.reverse()));
   };
   useEffect(() => {
     fn();
@@ -53,30 +55,66 @@ const Home = () => {
         setLoading(false);
       });
   };
+  const handleEdit = (e: FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    axios
+      .post(
+        `https://todobymalikovshahriyor.onrender.com/api/edit/${editedId}`,
+        {
+          text: value,
+        }
+      )
+      .then((res) => {
+        fn();
+        setValue("");
+        setEditedId(null);
+        setLoading(false);
+        setEditOpen(false);
+      });
+  };
   const deleteFn = (id: string) => {
     axios
       .delete(`https://todobymalikovshahriyor.onrender.com/api/delete/${id}`)
-      .then((res) => console.log(res.data));
+      .then((res) => {
+        fn();
+      });
   };
   return (
     <div className="flex flex-col mt-10 ">
       <div className="flex max-w-[500px] mx-auto justify-center w-full ">
-        <form
-          onSubmit={handleSend}
-          action=""
-          className="flex items-center justify-center gap-4 w-full"
-        >
-          <Input
-            onChange={(e) => setValue(e.target.value)}
-            value={value}
-            type="text"
-            className="!w-full"
-          />
-          <Button type="submit">send</Button>
-        </form>
+        {!editOpen ? (
+          <form
+            onSubmit={handleSend}
+            action=""
+            className="flex items-center justify-center gap-4 w-full"
+          >
+            <Input
+              onChange={(e) => setValue(e.target.value)}
+              value={value}
+              type="text"
+              className="!w-full"
+            />
+            <Button type="submit">send</Button>
+          </form>
+        ) : (
+          <form
+            onSubmit={handleEdit}
+            action=""
+            className="flex items-center justify-center gap-4 w-full"
+          >
+            <Input
+              onChange={(e) => setValue(e.target.value)}
+              value={value}
+              type="text"
+              className="!w-full"
+            />
+            <Button type="submit">Edit</Button>
+          </form>
+        )}
       </div>
-      <div className="max-w-[500px] mx-auto w-full">
-        <Table className="w-full">
+      <div className="max-w-[500px] mx-auto w-full max-h-[500px] overflow-y-scroll">
+        <Table className="w-full ">
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]">Todos </TableHead>
@@ -99,7 +137,15 @@ const Home = () => {
                         <MenubarItem onClick={() => deleteFn(value._id)}>
                           delete
                         </MenubarItem>
-                        <MenubarItem>edit</MenubarItem>
+                        <MenubarItem
+                          onClick={() => {
+                            setEditOpen(true);
+                            setValue(value.text);
+                            setEditedId(value._id);
+                          }}
+                        >
+                          edit
+                        </MenubarItem>
                       </MenubarContent>
                     </MenubarMenu>
                   </Menubar>
