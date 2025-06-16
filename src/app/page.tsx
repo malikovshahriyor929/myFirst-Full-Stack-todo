@@ -43,6 +43,7 @@ const Home = () => {
   }, []);
   const handleSend = (e: FormEvent) => {
     e.preventDefault();
+    if (value.trim() == "") return;
     setLoading(true);
     axios
       .post("https://todobymalikovshahriyor.onrender.com/api/create", {
@@ -58,12 +59,9 @@ const Home = () => {
   const handleEdit = (e: FormEvent) => {
     e.preventDefault();
     axios
-      .post(
-        `https://todobymalikovshahriyor.onrender.com/api/edit/${editedId}`,
-        {
-          text: value,
-        }
-      )
+      .put(`https://todobymalikovshahriyor.onrender.com/api/edit/${editedId}`, {
+        text: value,
+      })
       .then(() => {
         fn();
         setValue("");
@@ -118,49 +116,57 @@ const Home = () => {
         <Table className="w-full ">
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[100px]">Todos </TableHead>
+              <TableHead className="w-[100px]">Tasks </TableHead>
               <TableHead className="text-center">Time</TableHead>
-              <TableHead className="text-center">action</TableHead>
+              <TableHead className="text-end ">action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map((value, i) => (
-              <TableRow key={i}>
-                <TableCell className="font-medium">{value.text}</TableCell>
-                <TableCell className="text-center">
-                  {value.createdAt.slice(0, 10)}
-                </TableCell>
-                <TableCell className="w-fit">
-                  <Menubar className="w-fit mx-auto">
-                    <MenubarMenu>
-                      <MenubarTrigger>✏️</MenubarTrigger>
-                      <MenubarContent>
-                        <MenubarItem onClick={() => deleteFn(value._id)}>
-                          delete
-                        </MenubarItem>
-                        <MenubarItem
-                          onClick={() => {
-                            setEditOpen(true);
-                            setValue(value.text);
-                            setEditedId(value._id);
-                          }}
-                        >
-                          edit
-                        </MenubarItem>
-                      </MenubarContent>
-                    </MenubarMenu>
-                  </Menubar>
-                </TableCell>
-              </TableRow>
-            ))}
+            {data?.map((value, i) => {
+              const specificDate = new Date(value.updatedAt);
+              specificDate.setHours(specificDate.getHours() - 7);
+              return (
+                <TableRow key={i}>
+                  <TableCell className="font-medium">{value.text}</TableCell>
+                  <TableCell className="text-center">
+                    {specificDate.toISOString().slice(0, 10) +
+                      " " +
+                      specificDate.toISOString().slice(11, 16)}
+                  </TableCell>
+                  <TableCell className="w-fit">
+                    <Menubar className="w-fit ml-auto">
+                      <MenubarMenu>
+                        <MenubarTrigger>✏️</MenubarTrigger>
+                        <MenubarContent>
+                          <MenubarItem onClick={() => deleteFn(value._id)}>
+                            delete
+                          </MenubarItem>
+                          <MenubarItem
+                            onClick={() => {
+                              setEditOpen(true);
+                              setValue(value.text);
+                              setEditedId(value._id);
+                            }}
+                          >
+                            edit
+                          </MenubarItem>
+                        </MenubarContent>
+                      </MenubarMenu>
+                    </Menubar>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
             {Loading && (
               <TableRow>
-                <TableCell className="font-medium">
+                <TableCell className="font-medium ">
                   <Skeleton className="w-[200px] h-5  bg-black/30" />
-                  <Skeleton className="w-[50px] h-5 -z-40 opacity-0  bg-black/30" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="w-[100px] h-5   bg-black/30" />
                 </TableCell>
                 <TableCell className="mr-auto">
-                  <Skeleton className="w-[100px] h-5 bg-black/30" />
+                  <Skeleton className="w-[70px] h-5 bg-black/30" />
                 </TableCell>
               </TableRow>
             )}
