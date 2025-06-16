@@ -6,14 +6,13 @@ import router from "./routers/todo.route.js";
 import cors from "cors";
 
 const app = express();
+app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000", // yoki "*" test uchun
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );
-
-app.use(express.json());
 app.use("/api", router);
 
 const DB_URL = process.env.DB_URL;

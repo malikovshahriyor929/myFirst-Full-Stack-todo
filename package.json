@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"next dev --turbopack\"",
+    "dev": "concurrently \"npm run server\" \"next dev\"",
     "server": "nodemon src/app/backend/index.js",
     "build": "next build",
     "start": "node ./src/app/backend",
