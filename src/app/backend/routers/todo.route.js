@@ -3,6 +3,6 @@ import TodoController from "../controllers/todo.controller.js";
 const router = express.Router();
 
 router.get("/getAll", TodoController.getAll);
-router.get("/create", TodoController.create);
+router.post("/create", TodoController.create);
 
 export default router;
